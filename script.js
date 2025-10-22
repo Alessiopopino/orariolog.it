@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
   const searchResults = document.getElementById("search-results");
+  const searchInput = document.getElementById("search-input");
 
   // Tema salvato
   const themeToggle = document.getElementById("theme-toggle");
@@ -16,22 +17,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("theme", theme);
   });
 
-  try {
-    // Caricamento dati orario
-    const response = await fetch("orario.json");
-    const data = await response.json();
+  let data = []; // dichiarata fuori dal try per sicurezza
 
-    // Barra di caricamento
+  try {
+    const response = await fetch("orario.json");
+    data = await response.json();
+
+    // Barra caricamento
     const loadingBar = document.querySelector(".loading-bar");
     let progress = 0;
     const interval = setInterval(() => {
-      progress += Math.random() * 10; // incrementi casuali per effetto realistico
+      progress += Math.random() * 10;
       if (progress >= 100) progress = 100;
       loadingBar.style.width = progress + "%";
       if (progress >= 100) {
         clearInterval(interval);
         loader.style.display = "none";
-        calendarContainer.style.opacity = 1; // mostra il calendario
+        calendarContainer.style.opacity = 1;
       }
     }, 100);
 
@@ -40,8 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const card = document.createElement("div");
       card.classList.add("card");
 
-      const date = new Date(item.data + "T00:00:00");
-      const formattedDate = date.toLocaleDateString("it-IT", {
+      const formattedDate = new Date(item.data + "T00:00:00").toLocaleDateString("it-IT", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric"
@@ -54,13 +55,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       calendarContainer.appendChild(card);
     });
 
-    // 🔹 Funzione ricerca intelligente
-    const searchInput = document.getElementById("search-input");
+    // 🔹 Funzione ricerca live
     searchInput.addEventListener("input", () => {
       const filter = searchInput.value.toLowerCase();
-      searchResults.innerHTML = ""; // pulisce i risultati
+      searchResults.innerHTML = "";
 
-      if (filter === "") return; // se campo vuoto, non mostrare nulla
+      if (filter === "") return;
 
       data.forEach(item => {
         const text = `${item.materia} ${item.docente} ${item.orario} ${item.sede} ${item.data}`.toLowerCase();
