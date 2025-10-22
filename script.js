@@ -20,12 +20,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch("orario.json");
     const data = await response.json();
 
-    // Genera le card
     data.forEach(item => {
       const card = document.createElement("div");
       card.classList.add("card");
 
-      const date = new Date(item.data);
+      const date = new Date(item.data + "T00:00:00");
       const formattedDate = date.toLocaleDateString("it-IT", {
         day: "2-digit",
         month: "2-digit",
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       calendarContainer.appendChild(card);
     });
 
-    // Rimuovi loader dopo 2s
     setTimeout(() => {
       loader.style.display = "none";
     }, 2000);
