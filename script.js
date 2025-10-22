@@ -24,21 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const card = document.createElement("div");
       card.classList.add("card");
 
-      // Colore in base allo stato della lezione
-      const [startTime, endTime] = item.orario.split("–").map(t => t.trim());
-      const startDateTime = new Date(item.data + "T" + startTime + ":00");
-      const endDateTime = new Date(item.data + "T" + endTime + ":00");
-      const now = new Date();
-
-      if (now > endDateTime) {
-        card.style.borderLeft = "6px solid #e74c3c"; // rosso
-      } else if (now >= startDateTime && now <= endDateTime) {
-        card.style.borderLeft = "6px solid #f1c40f"; // giallo
-      } else {
-        card.style.borderLeft = "6px solid #2ecc71"; // verde
-      }
-
-      // Formatta la data
       const date = new Date(item.data + "T00:00:00");
       const formattedDate = date.toLocaleDateString("it-IT", {
         day: "2-digit",
