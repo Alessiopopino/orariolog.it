@@ -4,30 +4,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const searchResults = document.getElementById("search-results");
   const searchInput = document.getElementById("search-input");
 
-  // Tema salvato
-  const themeToggle = document.getElementById("theme-toggle");
-  const currentTheme = localStorage.getItem("theme");
-  if (currentTheme === "dark") document.body.classList.add("dark-mode");
-  themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
-
-  themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
-    localStorage.setItem("theme", theme);
-  });
-
-  let data = []; // dichiarata fuori dal try per sicurezza
+  let data = []; // array globale dei dati
 
   try {
     const response = await fetch("orario.json");
     data = await response.json();
 
-    // Barra caricamento
+    // Barra caricamento animata
     const loadingBar = document.querySelector(".loading-bar");
     let progress = 0;
     const interval = setInterval(() => {
-      progress += Math.random() * 10;
+      progress += Math.random() * 15;
       if (progress >= 100) progress = 100;
       loadingBar.style.width = progress + "%";
       if (progress >= 100) {
@@ -37,17 +24,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }, 100);
 
-    // Creazione card del calendario
+    // Popola il calendario principale
     data.forEach(item => {
       const card = document.createElement("div");
       card.classList.add("card");
-
       const formattedDate = new Date(item.data + "T00:00:00").toLocaleDateString("it-IT", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
+        day: "2-digit", month: "2-digit", year: "numeric"
       });
-
       card.innerHTML = `
         <div class="date">${formattedDate}</div>
         <div class="lesson"><strong>${item.materia}</strong><br>${item.docente}<br>${item.orario}<br>${item.sede}</div>
@@ -55,25 +38,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       calendarContainer.appendChild(card);
     });
 
-    // 🔹 Funzione ricerca live
+    // Funzione ricerca live
     searchInput.addEventListener("input", () => {
       const filter = searchInput.value.toLowerCase();
-      searchResults.innerHTML = "";
+      searchResults.innerHTML = ""; // reset risultati
 
-      if (filter === "") return;
+      if (!filter) return;
 
       data.forEach(item => {
-        const text = `${item.materia} ${item.docente} ${item.orario} ${item.sede} ${item.data}`.toLowerCase();
-        if (text.includes(filter)) {
+        const combined = `${item.materia} ${item.docente} ${item.orario} ${item.sede} ${item.data}`.toLowerCase();
+        if (combined.includes(filter)) {
           const resultCard = document.createElement("div");
           resultCard.classList.add("card");
-
           const formattedDate = new Date(item.data + "T00:00:00").toLocaleDateString("it-IT", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
+            day: "2-digit", month: "2-digit", year: "numeric"
           });
-
           resultCard.innerHTML = `
             <div class="date">${formattedDate}</div>
             <div class="lesson"><strong>${item.materia}</strong><br>${item.docente}<br>${item.orario}<br>${item.sede}</div>
@@ -83,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-  } catch (error) {
+  } catch (err) {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
     loader.style.display = "none";
   }
