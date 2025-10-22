@@ -41,6 +41,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(() => {
       loader.style.display = "none";
     }, 2000);
+
+    // 🔹 Funzione ricerca (dopo aver creato le card)
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("input", () => {
+      const filter = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(filter) ? "" : "none";
+      });
+    });
+
   } catch (error) {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
     loader.style.display = "none";
