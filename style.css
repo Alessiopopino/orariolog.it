@@ -51,6 +51,7 @@ h1 {
   transform: scale(1.2);
 }
 
+/* Loader */
 #loader {
   position: fixed;
   inset: 0;
@@ -113,6 +114,8 @@ h1 {
   line-height: 1.4;
   color: var(--text-color);
 }
+
+/* Barra di ricerca */
 #search-bar {
   display: flex;
   justify-content: center;
@@ -133,6 +136,7 @@ h1 {
 #search-input:focus {
   border-color: var(--accent-color);
 }
+
 .dark-mode #search-input {
   background: #1e1e1e;
   color: #e0e0e0;
