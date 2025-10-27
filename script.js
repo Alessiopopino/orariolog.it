@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
 
-  // === Gestione tema salvato ===
+  // === Tema salvato ===
   const themeToggle = document.getElementById("theme-toggle");
   const currentTheme = localStorage.getItem("theme");
   if (currentTheme === "dark") document.body.classList.add("dark-mode");
@@ -20,23 +20,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch("orario.json");
     const data = await response.json();
 
-    // Ordina per data (facoltativo, ma utile)
-    data.sort((a, b) => new Date(a.data) - new Date(b.data));
+    // Ordina per data
+    data.sort((a,b) => new Date(a.data) - new Date(b.data));
 
-    // Crea le card ma le tiene inizialmente invisibili
+    // Crea card
     data.forEach((item, index) => {
       const card = document.createElement("div");
       card.classList.add("card");
-      card.style.opacity = "0";
-      card.style.transform = "translateY(10px)";
-      card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
 
       const date = new Date(item.data + "T00:00:00");
-      const formattedDate = date.toLocaleDateString("it-IT", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      });
+      const formattedDate = date.toLocaleDateString("it-IT", { day:"2-digit", month:"2-digit", year:"numeric" });
 
       card.innerHTML = `
         <div class="date">${formattedDate}</div>
@@ -47,19 +40,19 @@ document.addEventListener("DOMContentLoaded", async () => {
           ${item.sede}
         </div>
       `;
+
       calendarContainer.appendChild(card);
+
+      // Fade-in progressivo
+      setTimeout(() => {
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, index * 100);
     });
 
-    // Dopo il caricamento, nascondi il loader e mostra gradualmente le card
+    // Nasconde loader
     setTimeout(() => {
       loader.style.display = "none";
-      const cards = document.querySelectorAll(".card");
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = "1";
-          card.style.transform = "translateY(0)";
-        }, i * 100); // ritardo progressivo (100 ms tra una card e l’altra)
-      });
     }, 2000);
 
     // === Funzione ricerca ===
@@ -78,21 +71,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
     loader.style.display = "none";
   }
-  
-  // === Finestra Aggiornamenti ===
-  const updatesBtn = document.getElementById("updates-btn");
-  const modal = document.getElementById("updates-modal");
-  const closeModal = document.getElementById("close-modal");
-
-  updatesBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-  });
-
-  closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  // Chiudi cliccando fuori dalla finestra
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  });
+});
