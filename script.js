@@ -78,4 +78,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
     loader.style.display = "none";
   }
-});
+  
+  // === Finestra Aggiornamenti ===
+  const updatesBtn = document.getElementById("updates-btn");
+  const modal = document.getElementById("updates-modal");
+  const closeModal = document.getElementById("close-modal");
+
+  updatesBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Chiudi cliccando fuori dalla finestra
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
