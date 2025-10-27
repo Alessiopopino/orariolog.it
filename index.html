@@ -12,11 +12,30 @@
     <div class="loading-bar"></div>
   </div>
 
-  <!-- Header -->
+  <!-- Header aggiornato -->
   <header>
     <h1>Orario Formetica</h1>
-    <button id="theme-toggle" aria-label="Cambia tema">🌙</button>
+    <div>
+      <button id="updates-btn" aria-label="Vedi aggiornamenti">📝 Aggiornamenti</button>
+      <button id="theme-toggle" aria-label="Cambia tema">🌙</button>
+    </div>
   </header>
+
+  <!-- Finestra modale per aggiornamenti -->
+  <div id="updates-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2>🆕 Aggiornamenti del sito</h2>
+      <div id="updates-list">
+        <p><strong>📅 27/10/2025 — Aggiornamento n°1</strong></p>
+        <ul>
+          <li>Aggiunto effetto di caricamento fluido (fade-in progressivo delle card).</li>
+          <li>Le lezioni ora sono ordinate automaticamente per data.</li>
+          <li>Transizione più naturale dopo il loader (effetto di dissolvenza).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <!-- Barra di ricerca -->
   <div id="search-bar">
