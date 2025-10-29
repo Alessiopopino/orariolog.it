@@ -1,5 +1,26 @@
 [
   {
+    "data": "2025-10-29",
+    "materia": "Tecniche di manutenzione di network informatici",
+    "docente": "Marco Pisani",
+    "orario": "13:30 – 16:30",
+    "sede": "Sede principale"
+  },
+  {
+    "data": "2025-10-30",
+    "materia": "Gestione e manutenzione del luogo di lavoro",
+    "docente": "Cristina Cipollini",
+    "orario": "09:00 – 13:00",
+    "sede": "Sede principale"
+  },
+  {
+    "data": "2025-10-31",
+    "materia": "Educazione motoria",
+    "docente": "Massimo Brinati",
+    "orario": "09:00 – 11:00",
+    "sede": "Piscina di Mezzana"
+  },
+  {
     "data": "2025-11-03",
     "materia": "Lingua Italiana",
     "docente": "Stefano Farinelli",
