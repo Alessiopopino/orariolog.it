@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await response.json();
 
     // Ordina per data
-    data.sort((a,b) => new Date(a.data) - new Date(b.data));
+    data.sort((a, b) => new Date(a.data) - new Date(b.data));
 
     // Crea card
     data.forEach((item, index) => {
@@ -29,7 +29,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       card.classList.add("card");
 
       const date = new Date(item.data + "T00:00:00");
-      const formattedDate = date.toLocaleDateString("it-IT", { day:"2-digit", month:"2-digit", year:"numeric" });
+      const formattedDate = date.toLocaleDateString("it-IT", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
 
       card.innerHTML = `
         <div class="date">${formattedDate}</div>
@@ -50,10 +54,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }, index * 100);
     });
 
-    // Nasconde loader
+    // === Nuovo loader con fade-out rapido ===
     setTimeout(() => {
-      loader.style.display = "none";
-    }, 2000);
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 500);
+    }, 1000);
 
     // === Funzione ricerca ===
     const searchInput = document.getElementById("search-input");
