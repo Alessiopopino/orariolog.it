@@ -14,6 +14,7 @@
   --shadow: 0 4px 15px rgba(255,255,255,0.05);
 }
 
+/* BODY */
 body {
   background: var(--bg-color);
   color: var(--text-color);
@@ -22,7 +23,7 @@ body {
   transition: background 0.6s, color 0.6s;
 }
 
-/* Header */
+/* HEADER */
 header {
   display: flex;
   justify-content: space-between;
@@ -53,7 +54,7 @@ h1 {
   transform: scale(1.2);
 }
 
-/* ✅ NEW: Loader testuale animato */
+/* ✅ LOADER NUOVO */
 #loader {
   position: fixed;
   inset: 0;
@@ -61,6 +62,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;  /* ✅ Fissa centramento su telefono */
+  padding: 0 20px;     /* ✅ Evita incollamento ai bordi */
   z-index: 999;
   transition: opacity 0.5s;
 }
@@ -68,9 +71,10 @@ h1 {
 #loader-text {
   font-size: 1.4rem;
   font-weight: 600;
+  width: 100%;         /* ✅ Forza centramento */
   opacity: 0;
-  animation: fadeIn 1s forwards;
   color: var(--text-color);
+  animation: fadeIn 1s forwards;
 }
 
 @keyframes fadeIn {
@@ -78,7 +82,7 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Calendario */
+/* CALENDARIO */
 #calendar-container {
   padding: 2rem;
   display: flex;
@@ -118,7 +122,7 @@ h1 {
   color: var(--text-color);
 }
 
-/* Barra di ricerca */
+/* BARRA DI RICERCA */
 #search-bar {
   display: flex;
   justify-content: center;
