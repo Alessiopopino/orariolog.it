@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {
+
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
+  const daySelect = document.getElementById("day-select");
 
   /* =============================
-     ✅ TEMA SALVATO
+     TEMA SCURO / CHIARO
   ============================== */
   const themeToggle = document.getElementById("theme-toggle");
   const currentTheme = localStorage.getItem("theme");
@@ -20,19 +22,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   /* =============================
-     ✅ FUNZIONE PER CREARE UNA CARD
+     CREA CARD DELLA LEZIONE
   ============================== */
   function createCard(item, index) {
     const card = document.createElement("div");
     card.classList.add("card");
 
-    // Parsing sicuro della data
     const date = new Date(item.data + "T00:00:00");
 
-    // Nome del giorno aggiunto automaticamente → non rompe il parsing
     const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
-
-    // Data formattata
     const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
       day: "2-digit",
       month: "2-digit",
@@ -51,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
-    // Animazione fade-in fluida
+    // animazione
     requestAnimationFrame(() => {
       setTimeout(() => {
         card.style.opacity = "1";
@@ -61,13 +59,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
-     ✅ CARICAMENTO ORARIO CON CACHE
+     CARICA ORARIO + CACHE
   ============================== */
-
   async function loadOrario() {
     let data = null;
 
-    // 1️⃣ Se c’è la cache → uso quella
     const cached = localStorage.getItem("orarioCache");
     if (cached) {
       try {
@@ -75,26 +71,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       } catch {}
     }
 
-    // 2️⃣ Carico online (e aggiorno cache)
     try {
       const response = await fetch("orario.json", { cache: "no-store" });
       const freshData = await response.json();
 
-      // Se i dati online sono diversi → aggiorno la cache
       if (JSON.stringify(freshData) !== JSON.stringify(data)) {
         localStorage.setItem("orarioCache", JSON.stringify(freshData));
       }
 
       data = freshData;
-    } catch (err) {
-      console.warn("⚠️ Nessuna connessione, uso cache locale.");
+    } catch {
+      console.warn("⚠️ Offline, uso cache locale");
     }
 
     return data;
   }
 
   /* =============================
-     ✅ CARICA E RENDERIZZA ORARIO
+     RENDER ORARIO
   ============================== */
   try {
     const data = await loadOrario();
@@ -105,13 +99,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Ordina le date in modo corretto
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
-
-    // Crea le card
     data.forEach((item, index) => createCard(item, index));
 
-    // Loader fade-out veloce
     loader.style.opacity = "0";
     setTimeout(() => loader.style.display = "none", 400);
 
@@ -122,16 +112,37 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
-     ✅ FILTRO DI RICERCA
+     FILTRO TESTO
   ============================== */
   searchInput.addEventListener("input", () => {
-    const filter = searchInput.value.toLowerCase();
+    applyFilters();
+  });
+
+  /* =============================
+     FILTRO GIORNO
+  ============================== */
+  daySelect.addEventListener("change", () => {
+    applyFilters();
+  });
+
+  /* =============================
+     FUNZIONE FILTRI COMBINATI
+  ============================== */
+  function applyFilters() {
+    const textFilter = searchInput.value.toLowerCase();
+    const dayFilter = daySelect.value;
+
     const cards = document.querySelectorAll(".card");
 
     cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(filter) ? "" : "none";
+      const content = card.textContent.toLowerCase();
+      const dateText = card.querySelector(".date").textContent.toLowerCase();
+
+      const matchText = content.includes(textFilter);
+      const matchDay = dayFilter === "all" || dateText.includes(dayFilter);
+
+      card.style.display = matchText && matchDay ? "" : "none";
     });
-  });
+  }
 
 });
