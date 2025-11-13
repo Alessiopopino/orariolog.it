@@ -26,12 +26,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const card = document.createElement("div");
     card.classList.add("card");
 
+    // Parsing sicuro della data
     const date = new Date(item.data + "T00:00:00");
-    const formattedDate = date.toLocaleDateString("it-IT", {
+
+    // Nome del giorno aggiunto automaticamente → non rompe il parsing
+    const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
+
+    // Data formattata
+    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric"
-    });
+    })}`;
 
     card.innerHTML = `
       <div class="date">${formattedDate}</div>
@@ -45,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
-    // Fade-in più leggero e più fluido
+    // Animazione fade-in fluida
     requestAnimationFrame(() => {
       setTimeout(() => {
         card.style.opacity = "1";
@@ -99,11 +105,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    // Ordina le date in modo corretto
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
 
+    // Crea le card
     data.forEach((item, index) => createCard(item, index));
 
-    // Loader che sparisce appena tutto è pronto (più veloce)
+    // Loader fade-out veloce
     loader.style.opacity = "0";
     setTimeout(() => loader.style.display = "none", 400);
 
@@ -114,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
-     ✅ FILTRO DI RICERCA SUPER VELOCE
+     ✅ FILTRO DI RICERCA
   ============================== */
   searchInput.addEventListener("input", () => {
     const filter = searchInput.value.toLowerCase();
