@@ -83,8 +83,10 @@ h1 {
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 3.5rem; /* più spazio tra le card */
-  justify-content: center;
+  gap: 2.5rem 2rem;
+  justify-content: flex-start; /* 🔥 card a sinistra su PC */
+  max-width: 1400px;           /* ottimizza lo spazio su PC */
+  margin: auto;                /* centra il contenitore */
 }
 
 .card {
@@ -93,7 +95,7 @@ h1 {
   border-radius: 1rem;
   box-shadow: var(--shadow);
 
-  /* 🔥 GRIGLIA RESPONSIVA SU PC */
+  /* 🔥 Card responsiva: su PC si affiancano */
   flex: 1 1 280px;
   max-width: 340px;
 
@@ -164,7 +166,7 @@ h1 {
 /* MOBILE */
 @media (max-width: 768px) {
 
-  /* 🔥 MOBILE: UNA CARD SOTTO L’ALTRA */
+  /* 🔥 Mobile: card una sotto l’altra */
   .card {
     flex: 1 1 100%;
     max-width: 100%;
