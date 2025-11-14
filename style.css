@@ -1,60 +1,86 @@
-/* FILTRI */
-#filters {
-  width: 100%;
-  max-width: 450px;
-  margin: 1rem auto 1rem;
+:root {
+  --bg-color: #f6f8fa;
+  --text-color: #1a1a1a;
+  --card-bg: #ffffff;
+  --accent-color: #0078ff;
+  --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --accent-color: #00bfff;
+  --shadow: 0 4px 15px rgba(255,255,255,0.05);
+}
+
+/* BODY */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  transition: background 0.6s, color 0.6s;
+}
+
+/* HEADER */
+header {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.filter-section {
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
   background: var(--card-bg);
-  border-radius: 12px;
   box-shadow: var(--shadow);
-  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.filter-toggle {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  font-size: 1.1rem;
-  text-align: left;
+h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+#theme-toggle {
+  font-size: 1.4rem;
   background: none;
   border: none;
-  color: var(--text-color);
   cursor: pointer;
+  color: var(--text-color);
+  transition: transform 0.3s;
 }
 
-.filter-content {
-  display: none;
-  padding: 0.8rem 1rem 1.2rem;
+#theme-toggle:hover {
+  transform: scale(1.2);
 }
 
-.filter-content select {
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 10px;
-  border: 1px solid #aaa;
-  font-size: 1rem;
+/* LOADER */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: opacity 0.5s;
 }
 
-.dark-mode .filter-section {
-  background: #1e1e1e;
+#loader-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
 }
 
-.dark-mode .filter-content select {
-  background: #1e1e1e;
-  color: #e0e0e0;
-  border-color: #555;
+/* Animazione loader */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Spaziatura card (aggiornata) */
-.card {
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-  #filters { max-width: 92%; }
-  .card { margin-bottom: 1.8rem; }
-}
+/* CALENDARIO */
+#calendar-container {
+  padding: 2rem;
+  display: flex;
+  flex-wra
