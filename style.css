@@ -78,13 +78,13 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* CALENDARIO ORIGINALE (colonna centrale) */
+/* CALENDARIO */
 #calendar-container {
   padding: 2rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;   /* card centrate */
-  gap: 2rem;             /* spazio tra le card */
+  flex-wrap: wrap;
+  gap: 3.5rem;      /* SPACING AUMENTATO */
+  justify-content: center;
 }
 
 .card {
@@ -92,11 +92,12 @@ h1 {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: var(--shadow);
-  width: 90%;
-  max-width: 420px;      /* card più larghe come prima */
+  min-width: 250px;
+  max-width: 300px;
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
   opacity: 0;
   transform: translateY(10px);
+  margin-bottom: 1.5rem;   /* SPACING EXTRA */
 }
 
 .card:hover {
@@ -122,9 +123,9 @@ h1 {
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
+  outline: none;
 }
 
-/* DARK MODE INPUT */
 .dark-mode #search-input {
   background: #1e1e1e;
   color: #e0e0e0;
@@ -147,16 +148,34 @@ h1 {
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
+  outline: none;
+}
+
+.dark-mode #day-select {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #555;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
+
+  #search-input {
+    max-width: 250px;
+  }
+
   .card {
-    width: 95%;
-    max-width: 95%;
+    min-width: 90%;
+    max-width: 90%;
+    margin-bottom: 1.8rem;   /* SPACING MOBILE AUMENTATO */
   }
 
   #calendar-container {
-    gap: 1.5rem;
+    padding: 1rem;
+    gap: 2rem;   /* SPACING MOBILE */
+  }
+
+  h1 {
+    font-size: 1.2rem;
   }
 }
