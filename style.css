@@ -54,50 +54,29 @@ h1 {
   transform: scale(1.2);
 }
 
-/* LOADER */
-#loader {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  transition: opacity 0.5s;
-}
-
-#loader-text {
-  font-size: 1.4rem;
-  font-weight: 600;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* CALENDARIO */
 #calendar-container {
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 3.5rem;      /* SPACING AUMENTATO */
-  justify-content: center;
+  gap: 2rem; /* spazio tra le card */
+  justify-content: flex-start;
 }
 
+/* Card */
 .card {
   background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: var(--shadow);
-  min-width: 250px;
-  max-width: 300px;
+
+  /* Flexbox per griglia: 3 card per riga circa */
+  flex: 1 1 calc(33.333% - 2rem); /* meno gap orizzontale */
+  max-width: 340px;
+
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
   opacity: 0;
   transform: translateY(10px);
-  margin-bottom: 1.5rem;   /* SPACING EXTRA */
 }
 
 .card:hover {
@@ -109,7 +88,7 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-/* SEARCH BAR */
+/* SEARCH BAR e filtro (restano come prima) */
 #search-bar {
   display: flex;
   justify-content: center;
@@ -123,7 +102,6 @@ h1 {
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
-  outline: none;
 }
 
 .dark-mode #search-input {
@@ -136,7 +114,6 @@ h1 {
   color: #aaaaaa;
 }
 
-/* FILTRO GIORNO */
 #day-filter {
   display: flex;
   justify-content: center;
@@ -148,7 +125,6 @@ h1 {
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
-  outline: none;
 }
 
 .dark-mode #day-select {
@@ -159,20 +135,14 @@ h1 {
 
 /* MOBILE */
 @media (max-width: 768px) {
-
-  #search-input {
-    max-width: 250px;
+  #calendar-container {
+    padding: 1rem;
+    gap: 1.5rem;
   }
 
   .card {
-    min-width: 90%;
-    max-width: 90%;
-    margin-bottom: 1.8rem;   /* SPACING MOBILE AUMENTATO */
-  }
-
-  #calendar-container {
-    padding: 1rem;
-    gap: 2rem;   /* SPACING MOBILE */
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
   h1 {
