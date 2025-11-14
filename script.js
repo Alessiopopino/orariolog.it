@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
+    // Animazione card
     setTimeout(() => {
       card.style.opacity = "1";
       card.style.transform = "translateY(0)";
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
-     📥 Carica orario + cache
+     📥 Carica orario + cache locale
   ============================== */
   async function loadOrario() {
     let data = null;
