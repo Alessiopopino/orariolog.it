@@ -78,18 +78,13 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* CALENDARIO */
+/* CALENDARIO ORIGINALE (colonna centrale) */
 #calendar-container {
   padding: 2rem;
   display: flex;
-  flex-wrap: wrap;
-
-  /* 🔥 finalmente larghezza giusta */
-  max-width: 1700px;
-  margin: auto;
-
-  gap: 2rem;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;   /* card centrate */
+  gap: 2rem;             /* spazio tra le card */
 }
 
 .card {
@@ -97,11 +92,8 @@ h1 {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: var(--shadow);
-
-  /* 🔥 Card più strette → vanno in riga */
-  flex: 1 1 250px;
-  max-width: 280px;
-
+  width: 90%;
+  max-width: 420px;      /* card più larghe come prima */
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
   opacity: 0;
   transform: translateY(10px);
@@ -143,7 +135,7 @@ h1 {
   color: #aaaaaa;
 }
 
-/* FILTRO */
+/* FILTRO GIORNO */
 #day-filter {
   display: flex;
   justify-content: center;
@@ -159,18 +151,12 @@ h1 {
 
 /* MOBILE */
 @media (max-width: 768px) {
-
   .card {
-    flex: 1 1 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 95%;
   }
 
   #calendar-container {
-    padding: 1rem;
     gap: 1.5rem;
-  }
-
-  h1 {
-    font-size: 1.2rem;
   }
 }
