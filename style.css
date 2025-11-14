@@ -83,7 +83,7 @@ h1 {
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 3.5rem;      /* SPACING AUMENTATO */
+  gap: 3.5rem; /* più spazio tra le card */
   justify-content: center;
 }
 
@@ -92,12 +92,16 @@ h1 {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: var(--shadow);
-  min-width: 250px;
-  max-width: 300px;
+
+  /* 🔥 GRIGLIA RESPONSIVA SU PC */
+  flex: 1 1 280px;
+  max-width: 340px;
+
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
   opacity: 0;
   transform: translateY(10px);
-  margin-bottom: 1.5rem;   /* SPACING EXTRA */
+
+  margin-bottom: 1.5rem;
 }
 
 .card:hover {
@@ -160,19 +164,20 @@ h1 {
 /* MOBILE */
 @media (max-width: 768px) {
 
-  #search-input {
-    max-width: 250px;
-  }
-
+  /* 🔥 MOBILE: UNA CARD SOTTO L’ALTRA */
   .card {
-    min-width: 90%;
-    max-width: 90%;
-    margin-bottom: 1.8rem;   /* SPACING MOBILE AUMENTATO */
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-bottom: 1.8rem;
   }
 
   #calendar-container {
     padding: 1rem;
-    gap: 2rem;   /* SPACING MOBILE */
+    gap: 2rem;
+  }
+
+  #search-input {
+    max-width: 250px;
   }
 
   h1 {
