@@ -24,18 +24,36 @@
     <input type="text" id="search-input" placeholder="Cerca materia, docente o sede...">
   </div>
 
-  <!-- Filtro giorno -->
-  <div id="day-filter">
-    <select id="day-select">
-      <option value="all">Tutti i giorni</option>
-      <option value="lunedì">Lunedì</option>
-      <option value="martedì">Martedì</option>
-      <option value="mercoledì">Mercoledì</option>
-      <option value="giovedì">Giovedì</option>
-      <option value="venerdì">Venerdì</option>
-      <option value="sabato">Sabato</option>
-      <option value="domenica">Domenica</option>
-    </select>
+  <!-- FILTRI A TENDINA -->
+  <div id="filters">
+
+    <!-- Filtro Giorni -->
+    <div class="filter-section">
+      <button class="filter-toggle">📅 Giorni</button>
+      <div class="filter-content">
+        <select id="day-select">
+          <option value="all">Tutti i giorni</option>
+          <option value="lunedì">Lunedì</option>
+          <option value="martedì">Martedì</option>
+          <option value="mercoledì">Mercoledì</option>
+          <option value="giovedì">Giovedì</option>
+          <option value="venerdì">Venerdì</option>
+          <option value="sabato">Sabato</option>
+          <option value="domenica">Domenica</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filtro Docenti -->
+    <div class="filter-section">
+      <button class="filter-toggle">👨‍🏫 Docenti</button>
+      <div class="filter-content">
+        <select id="teacher-select">
+          <option value="all">Tutti i docenti</option>
+        </select>
+      </div>
+    </div>
+
   </div>
 
   <!-- Calendario -->
