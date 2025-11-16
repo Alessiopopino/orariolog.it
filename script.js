@@ -82,16 +82,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
-     📅 Render orario
+     📅 Render orario + Loader minimo 1 secondo
   ============================== */
+
+  const startTime = performance.now();
+
   try {
     const data = await loadOrario();
 
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
     data.forEach((item, index) => createCard(item, index));
 
-    loader.style.opacity = "0";
-    setTimeout(() => loader.style.display = "none", 400);
+    const elapsed = performance.now() - startTime;
+    const minimumDelay = 1000; // 1 secondo minimo
+    const remaining = Math.max(0, minimumDelay - elapsed);
+
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 400);
+    }, remaining);
 
   } catch {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
