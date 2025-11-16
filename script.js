@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-  const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
+    // Animazione card
     setTimeout(() => {
       card.style.opacity = "1";
       card.style.transform = "translateY(0)";
@@ -81,12 +81,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
     data.forEach((item, index) => createCard(item, index));
 
-    loader.style.opacity = "0";
-    setTimeout(() => loader.style.display = "none", 400);
-
   } catch {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
-    loader.style.display = "none";
   }
 
   /* Filtri */
