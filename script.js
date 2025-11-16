@@ -1,66 +1,35 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-  // Nasconde il sito finché il loader è attivo
-  document.body.classList.add("loading");
-
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
 
-  /* =============================
-        🌙 TEMA SALVATO
-  ============================== */
+  /* Tema salvato */
   const themeToggle = document.getElementById("theme-toggle");
-  const savedTheme = localStorage.getItem("theme");
+  const currentTheme = localStorage.getItem("theme");
 
-  if (savedTheme === "dark") document.body.classList.add("dark-mode");
+  if (currentTheme === "dark") document.body.classList.add("dark-mode");
   themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
 
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    localStorage.setItem("theme", theme);
     themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    localStorage.setItem("theme", theme);
   });
 
-  /* =============================
-        📥 CARICA ORARIO + CACHE
-  ============================== */
-  async function loadOrario() {
-    let data = null;
-
-    const cached = localStorage.getItem("orarioCache");
-    if (cached) {
-      try { data = JSON.parse(cached); } catch {}
-    }
-
-    try {
-      const res = await fetch("orario.json", { cache: "no-store" });
-      const fresh = await res.json();
-
-      if (JSON.stringify(fresh) !== JSON.stringify(data))
-        localStorage.setItem("orarioCache", JSON.stringify(fresh));
-
-      data = fresh;
-
-    } catch {
-      console.warn("Offline → uso cache locale");
-    }
-
-    return data;
-  }
-
-  /* =============================
-        📦 CREA CARD
-  ============================== */
-  function createCard(item, i) {
+  /* Crea card */
+  function createCard(item, index) {
     const card = document.createElement("div");
     card.classList.add("card");
 
     const date = new Date(item.data + "T00:00:00");
     const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
-    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT")}`;
+
+    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
+      day: "2-digit", month: "2-digit", year: "numeric"
+    })}`;
 
     card.innerHTML = `
       <div class="date">${formattedDate}</div>
@@ -74,49 +43,60 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
-    // Animazione card
     setTimeout(() => {
       card.style.opacity = "1";
       card.style.transform = "translateY(0)";
-    }, i * 60);
+    }, index * 60);
   }
 
-  /* =============================
-        🚀 RENDER + LOADER MINIMO
-  ============================== */
-  const start = performance.now();
+  /* Carica orario */
+  async function loadOrario() {
+    let data = null;
 
+    const cached = localStorage.getItem("orarioCache");
+    if (cached) {
+      try { data = JSON.parse(cached); } catch {}
+    }
+
+    try {
+      const response = await fetch("orario.json", { cache: "no-store" });
+      const freshData = await response.json();
+
+      if (JSON.stringify(freshData) !== JSON.stringify(data)) {
+        localStorage.setItem("orarioCache", JSON.stringify(freshData));
+      }
+
+      data = freshData;
+    } catch {
+      console.warn("⚠ Offline → uso cache locale");
+    }
+
+    return data;
+  }
+
+  /* Render */
   try {
     const data = await loadOrario();
 
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
-    data.forEach((item, i) => createCard(item, i));
+    data.forEach((item, index) => createCard(item, index));
 
-    // loader minimo 1.5 secondi
-    const elapsed = performance.now() - start;
-    const minLoad = 1500;
-    const remaining = Math.max(0, minLoad - elapsed);
-
-    setTimeout(() => {
-      loader.style.opacity = "0";
-      document.body.classList.remove("loading");
-      setTimeout(() => loader.style.display = "none", 500);
-    }, remaining);
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 400);
 
   } catch {
-    calendarContainer.innerHTML = "<p>Errore nel caricamento</p>";
-    document.body.classList.remove("loading");
+    calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
     loader.style.display = "none";
   }
 
-  /* =============================
-        🔍 FILTRI
-  ============================== */
+  /* Filtri */
   function applyFilters() {
     const text = searchInput.value.toLowerCase();
     const day = daySelect.value;
 
-    document.querySelectorAll(".card").forEach(card => {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
       const content = card.textContent.toLowerCase();
       const dateText = card.querySelector(".date").textContent.toLowerCase();
 
