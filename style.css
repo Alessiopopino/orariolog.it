@@ -14,47 +14,48 @@
   --shadow: 0 4px 15px rgba(255,255,255,0.05);
 }
 
-/* BODY */
-body {
+/* RESET COMPLETO PER IL LOADER */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
   transition: background 0.6s, color 0.6s;
 }
 
-
-/* ======================================
-   🟦 LOADER FULLSCREEN CENTRATO
-====================================== */
+/* =============================
+   LOADER FULLSCREEN CENTRATO
+============================= */
 #loader {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  position: fixed !important;
+  inset: 0 !important;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw !important;
+  height: 100vh !important;
 
-  background: var(--bg-color);
-  color: var(--text-color);
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 
-  z-index: 999999;
+  background: var(--bg-color) !important;
+  color: var(--text-color) !important;
+
+  z-index: 999999 !important;
+
   opacity: 1;
   transition: opacity 0.6s ease;
-
-  margin: 0 !important;
-  padding: 0 !important;
 }
 
 #loader-text {
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
-  line-height: 1.2;
   opacity: 0;
-  animation: fadeLoader 0.6s ease forwards;
+  animation: fadeLoader 0.7s ease forwards;
 }
 
 @keyframes fadeLoader {
@@ -62,20 +63,19 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Nasconde TUTTO sotto il loader */
+/* NASCONDE TUTTO FINCHÉ CARICA */
 body.loading *:not(#loader):not(#loader *) {
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
-
-/* ======================================
+/* =============================
    HEADER
-====================================== */
+============================= */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   background: var(--card-bg);
   box-shadow: var(--shadow);
   position: sticky;
@@ -84,7 +84,7 @@ header {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 0;
 }
 
@@ -94,17 +94,11 @@ h1 {
   border: none;
   cursor: pointer;
   color: var(--text-color);
-  transition: transform 0.3s;
 }
 
-#theme-toggle:hover {
-  transform: scale(1.2);
-}
-
-
-/* ======================================
-   CALENDARIO + CARD
-====================================== */
+/* =============================
+   CARDS SPAZIATE
+============================= */
 #calendar-container {
   padding: 2rem 1rem;
   display: flex;
@@ -127,18 +121,14 @@ h1 {
   opacity: 0;
   transform: translateY(10px);
   transition: transform 0.3s, opacity 0.6s;
-  margin-bottom: 2rem !important;
-}
 
-.card:hover {
-  transform: translateY(-5px);
+  margin-bottom: 2rem !important;
 }
 
 .date {
   font-weight: bold;
   margin-bottom: 0.6rem;
 }
-
 
 /* SEARCH */
 #search-bar {
@@ -151,13 +141,11 @@ h1 {
   width: 90%;
   max-width: 400px;
   padding: 0.6rem 1rem;
-  font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
 }
 
-
-/* SELECT GIORNO */
+/* FILTRO */
 #day-filter {
   display: flex;
   justify-content: center;
@@ -166,13 +154,11 @@ h1 {
 
 #day-select {
   padding: 0.6rem 1rem;
-  font-size: 1rem;
   border-radius: 12px;
   border: 1px solid #ccc;
 }
 
-
-/* MOBILE */
+/* MOBILE FIX */
 @media (max-width: 768px) {
   .card {
     width: 85%;
