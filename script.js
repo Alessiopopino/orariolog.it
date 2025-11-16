@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
+  document.body.classList.add("loading"); // nasconde contenuto sotto il loader
+
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
 
-  /* =============================
-     🌙 Tema salvato
-  ============================== */
+  /* 🌙 Tema salvato */
   const themeToggle = document.getElementById("theme-toggle");
   const currentTheme = localStorage.getItem("theme");
 
@@ -21,41 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("theme", theme);
   });
 
-  /* =============================
-     🟦 Crea una card
-  ============================== */
-  function createCard(item, index) {
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    const date = new Date(item.data + "T00:00:00");
-    const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
-
-    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
-      day: "2-digit", month: "2-digit", year: "numeric"
-    })}`;
-
-    card.innerHTML = `
-      <div class="date">${formattedDate}</div>
-      <div class="lesson">
-        <strong>${item.materia}</strong><br>
-        ${item.docente}<br>
-        ${item.orario}<br>
-        ${item.sede}
-      </div>
-    `;
-
-    calendarContainer.appendChild(card);
-
-    setTimeout(() => {
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }, index * 60);
-  }
-
-  /* =============================
-     📥 Carica orario + cache locale
-  ============================== */
+  /* Carica orario */
   async function loadOrario() {
     let data = null;
 
@@ -80,42 +46,64 @@ document.addEventListener("DOMContentLoaded", async () => {
     return data;
   }
 
-  /* =============================
-     📅 Render orario + Loader minimo 1.5 secondi
-  ============================== */
+  /* Card */
+  function createCard(item, index) {
+    const card = document.createElement("div");
+    card.classList.add("card");
 
+    const date = new Date(item.data + "T00:00:00");
+    const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
+    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT")}`;
+
+    card.innerHTML = `
+      <div class="date">${formattedDate}</div>
+      <div class="lesson">
+        <strong>${item.materia}</strong><br>
+        ${item.docente}<br>
+        ${item.orario}<br>
+        ${item.sede}
+      </div>
+    `;
+
+    calendarContainer.appendChild(card);
+
+    setTimeout(() => {
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, index * 60);
+  }
+
+  /* Render + Loader minimo 1.5 sec */
   const start = performance.now();
 
   try {
     const data = await loadOrario();
-
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
-    data.forEach((item, index) => createCard(item, index));
+    data.forEach((item, i) => createCard(item, i));
 
     const elapsed = performance.now() - start;
-    const minimumDelay = 1500; // 1.5 secondi
-    const remaining = Math.max(0, minimumDelay - elapsed);
+    const minTime = 1500;
+    const remaining = Math.max(0, minTime - elapsed);
 
     setTimeout(() => {
       loader.style.opacity = "0";
+      document.body.classList.remove("loading");
       setTimeout(() => loader.style.display = "none", 600);
     }, remaining);
 
   } catch {
     calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
+    document.body.classList.remove("loading");
     loader.style.display = "none";
   }
 
-  /* =============================
-     🔍 Filtro testo + giorno
-  ============================== */
+
+  /* Filtri */
   function applyFilters() {
     const text = searchInput.value.toLowerCase();
     const day = daySelect.value;
 
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
+    document.querySelectorAll(".card").forEach(card => {
       const content = card.textContent.toLowerCase();
       const dateText = card.querySelector(".date").textContent.toLowerCase();
 
