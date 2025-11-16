@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
+  const comunicazioniContainer = document.getElementById("comunicazioni");
 
   /* =============================
      🌙 Tema salvato
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   /* =============================
-     🟦 Crea una card
+     🟦 Crea card orario
   ============================== */
   function createCard(item, index) {
     const card = document.createElement("div");
@@ -55,11 +56,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =============================
+     📢 Crea box comunicazioni
+  ============================== */
+  function createComunicazioneBox(msg) {
+    const box = document.createElement("div");
+    box.classList.add("com-box");
+
+    box.innerHTML = `
+      <h3>${msg.titolo}</h3>
+      <p>${msg.testo}</p>
+    `;
+
+    comunicazioniContainer.appendChild(box);
+  }
+
+  /* =============================
+     📥 Carica comunicazioni
+  ============================== */
+  async function loadComunicazioni() {
+    try {
+      const response = await fetch("comunicazioni.json", { cache: "no-store" });
+      const comunicazioni = await response.json();
+
+      comunicazioni.forEach(msg => createComunicazioneBox(msg));
+
+    } catch {
+      console.warn("⚠ Nessuna comunicazione caricata.");
+    }
+  }
+
+  /* =============================
      📥 Carica orario + cache locale
   ============================== */
   async function loadOrario() {
     let data = null;
 
+    // Tentativo cache locale
     const cached = localStorage.getItem("orarioCache");
     if (cached) {
       try { data = JSON.parse(cached); } catch {}
@@ -89,6 +121,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     data.sort((a, b) => new Date(a.data) - new Date(b.data));
     data.forEach((item, index) => createCard(item, index));
+
+    // Carica comunicazioni
+    loadComunicazioni();
 
     loader.style.opacity = "0";
     setTimeout(() => loader.style.display = "none", 400);
