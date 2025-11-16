@@ -2,17 +2,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
+  const comunicazioniContainer = document.getElementById("comunicazioni");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
-  const comunicazioniContainer = document.getElementById("comunicazioni");
 
-  /* =============================
-     🌙 Tema salvato
-  ============================== */
+  /* 🌙 Tema salvato */
   const themeToggle = document.getElementById("theme-toggle");
-  const currentTheme = localStorage.getItem("theme");
-
-  if (currentTheme === "dark") document.body.classList.add("dark-mode");
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") document.body.classList.add("dark-mode");
   themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
 
   themeToggle.addEventListener("click", () => {
@@ -22,19 +19,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("theme", theme);
   });
 
-  /* =============================
-     🟦 Crea card orario
-  ============================== */
+  /* CARD ORARIO */
   function createCard(item, index) {
     const card = document.createElement("div");
     card.classList.add("card");
 
     const date = new Date(item.data + "T00:00:00");
     const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
-
-    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
-      day: "2-digit", month: "2-digit", year: "numeric"
-    })}`;
+    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT")}`;
 
     card.innerHTML = `
       <div class="date">${formattedDate}</div>
@@ -48,17 +40,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     calendarContainer.appendChild(card);
 
-    // Animazione card
     setTimeout(() => {
       card.style.opacity = "1";
       card.style.transform = "translateY(0)";
     }, index * 60);
   }
 
-  /* =============================
-     📢 Crea box comunicazioni
-  ============================== */
-  function createComunicazioneBox(msg) {
+  /* BOX COMUNICAZIONI */
+  function createComunicazione(msg) {
     const box = document.createElement("div");
     box.classList.add("com-box");
 
@@ -70,79 +59,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     comunicazioniContainer.appendChild(box);
   }
 
-  /* =============================
-     📥 Carica comunicazioni
-  ============================== */
   async function loadComunicazioni() {
     try {
-      const response = await fetch("comunicazioni.json", { cache: "no-store" });
-      const comunicazioni = await response.json();
-
-      comunicazioni.forEach(msg => createComunicazioneBox(msg));
-
-    } catch {
-      console.warn("⚠ Nessuna comunicazione caricata.");
-    }
+      const res = await fetch("comunicazioni.json", { cache: "no-store" });
+      const data = await res.json();
+      data.forEach(msg => createComunicazione(msg));
+    } catch {}
   }
 
-  /* =============================
-     📥 Carica orario + cache locale
-  ============================== */
+  /* CARICA ORARIO */
   async function loadOrario() {
-    let data = null;
-
-    // Tentativo cache locale
-    const cached = localStorage.getItem("orarioCache");
-    if (cached) {
-      try { data = JSON.parse(cached); } catch {}
-    }
-
-    try {
-      const response = await fetch("orario.json", { cache: "no-store" });
-      const freshData = await response.json();
-
-      if (JSON.stringify(freshData) !== JSON.stringify(data)) {
-        localStorage.setItem("orarioCache", JSON.stringify(freshData));
-      }
-
-      data = freshData;
-    } catch {
-      console.warn("⚠ Offline → uso cache locale");
-    }
-
-    return data;
+    const res = await fetch("orario.json", { cache: "no-store" });
+    return await res.json();
   }
 
-  /* =============================
-     📅 Render orario
-  ============================== */
-  try {
-    const data = await loadOrario();
+  /* RENDER */
+  const orario = await loadOrario();
+  orario.sort((a, b) => new Date(a.data) - new Date(b.data));
+  orario.forEach((item, i) => createCard(item, i));
 
-    data.sort((a, b) => new Date(a.data) - new Date(b.data));
-    data.forEach((item, index) => createCard(item, index));
+  await loadComunicazioni();
 
-    // Carica comunicazioni
-    loadComunicazioni();
+  loader.style.opacity = "0";
+  setTimeout(() => loader.style.display = "none", 400);
 
-    loader.style.opacity = "0";
-    setTimeout(() => loader.style.display = "none", 400);
-
-  } catch {
-    calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
-    loader.style.display = "none";
-  }
-
-  /* =============================
-     🔍 Filtro testo + giorno
-  ============================== */
+  /* FILTRI */
   function applyFilters() {
     const text = searchInput.value.toLowerCase();
     const day = daySelect.value;
 
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
+    document.querySelectorAll(".card").forEach(card => {
       const content = card.textContent.toLowerCase();
       const dateText = card.querySelector(".date").textContent.toLowerCase();
 
