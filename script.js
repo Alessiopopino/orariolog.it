@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-  document.body.classList.add("loading"); // nasconde contenuto sotto il loader
+  document.body.classList.add("loading"); // nasconde contenuti sotto al loader
 
   const loader = document.getElementById("loader");
   const calendarContainer = document.getElementById("calendar");
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("theme", theme);
   });
 
-  /* Carica orario */
+  /* Caricamento orario con cache */
   async function loadOrario() {
     let data = null;
 
@@ -32,31 +32,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       const response = await fetch("orario.json", { cache: "no-store" });
-      const freshData = await response.json();
+      const fresh = await response.json();
 
-      if (JSON.stringify(freshData) !== JSON.stringify(data)) {
-        localStorage.setItem("orarioCache", JSON.stringify(freshData));
+      if (JSON.stringify(fresh) !== JSON.stringify(data)) {
+        localStorage.setItem("orarioCache", JSON.stringify(fresh));
       }
 
-      data = freshData;
+      data = fresh;
     } catch {
-      console.warn("⚠ Offline → uso cache locale");
+      console.warn("Offline → cache locale");
     }
 
     return data;
   }
 
-  /* Card */
+  /* CARD */
   function createCard(item, index) {
     const card = document.createElement("div");
     card.classList.add("card");
 
     const date = new Date(item.data + "T00:00:00");
     const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
-    const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT")}`;
+    const formatted = `${dayName} ${date.toLocaleDateString("it-IT")}`;
 
     card.innerHTML = `
-      <div class="date">${formattedDate}</div>
+      <div class="date">${formatted}</div>
       <div class="lesson">
         <strong>${item.materia}</strong><br>
         ${item.docente}<br>
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, index * 60);
   }
 
-  /* Render + Loader minimo 1.5 sec */
+  /* RENDER + LOADER */
   const start = performance.now();
 
   try {
@@ -88,17 +88,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(() => {
       loader.style.opacity = "0";
       document.body.classList.remove("loading");
-      setTimeout(() => loader.style.display = "none", 600);
+      setTimeout(() => loader.style.display = "none", 500);
     }, remaining);
 
   } catch {
-    calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
-    document.body.classList.remove("loading");
+    calendarContainer.innerHTML = "<p>Errore nel caricamento</p>";
     loader.style.display = "none";
+    document.body.classList.remove("loading");
   }
 
-
-  /* Filtri */
+  /* FILTRI */
   function applyFilters() {
     const text = searchInput.value.toLowerCase();
     const day = daySelect.value;
@@ -107,10 +106,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const content = card.textContent.toLowerCase();
       const dateText = card.querySelector(".date").textContent.toLowerCase();
 
-      const matchText = content.includes(text);
-      const matchDay = (day === "all") || dateText.includes(day);
+      const okText = content.includes(text);
+      const okDay = (day === "all") || dateText.includes(day);
 
-      card.style.display = matchText && matchDay ? "" : "none";
+      card.style.display = okText && okDay ? "" : "none";
     });
   }
 
