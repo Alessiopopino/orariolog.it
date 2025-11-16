@@ -23,6 +23,50 @@ body {
   transition: background 0.6s, color 0.6s;
 }
 
+
+/* =============================
+   🟦 FULLSCREEN LOADER
+============================= */
+#loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--bg-color);
+  color: var(--text-color);
+
+  z-index: 999999;
+  opacity: 1;
+
+  transition: opacity 0.6s ease;
+}
+
+#loader-text {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  animation: loaderFade 0.6s ease forwards;
+}
+
+@keyframes loaderFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Durante caricamento → nascondi contenuto */
+body.loading header,
+body.loading #search-bar,
+body.loading #day-filter,
+body.loading #calendar-container {
+  visibility: hidden;
+}
+
 /* HEADER */
 header {
   display: flex;
@@ -57,31 +101,25 @@ h1 {
 /* CALENDARIO */
 #calendar-container {
   padding: 2rem;
-
   display: flex;
   flex-direction: column;
-  align-items: center;     /* ⭐ centra i riquadri */
+  align-items: center;
   gap: 2rem;
 }
 
-/* CARD (PC) */
 .card {
   background: var(--card-bg);
   padding: 1.4rem;
   border-radius: 1rem;
   box-shadow: var(--shadow);
-
   width: 90%;
-  max-width: 260px;        /* ⭐ larghezza perfetta e centrata */
-
-  text-align: center;      /* ⭐ tutto testo centrato */
-
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
+  max-width: 260px;
+  text-align: center;
   opacity: 0;
   transform: translateY(10px);
+  transition: transform 0.3s, opacity 0.6s;
 }
 
-/* Effetto hover */
 .card:hover {
   transform: translateY(-5px);
 }
@@ -114,10 +152,6 @@ h1 {
   border-color: #555;
 }
 
-.dark-mode #search-input::placeholder {
-  color: #aaaaaa;
-}
-
 /* FILTRO GIORNO */
 #day-filter {
   display: flex;
@@ -139,19 +173,11 @@ h1 {
   border-color: #555;
 }
 
-/* 📱 MOBILE */
+/* MOBILE */
 @media (max-width: 768px) {
-
   .card {
-    width: 85%;        /* più strette su mobile */
+    width: 85%;
     max-width: 85%;
-    margin-bottom: 1.8rem;
-    text-align: center;
-  }
-
-  #calendar-container {
-    padding: 1rem;
-    gap: 1.5rem;
   }
 
   #search-input {
