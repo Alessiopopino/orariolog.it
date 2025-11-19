@@ -1,21 +1,14 @@
 [
   {
-    "data": "2025-11-18",
-    "materia": "Educazione storico-sociale",
+    "data": "2025-11-19",
+    "materia": "Gestione e manutenzione del luogo di lavoro (Laboratorio)",
     "docente": "Patrizia Casella",
     "orario": "13:30 – 16:30",
     "sede": "Sede principale"
   },
   {
-    "data": "2025-11-19",
-    "materia": "Materia da definire",
-    "docente": "Docente da definire",
-    "orario": "13:30 – 16:30",
-    "sede": "Sede principale"
-  },
-  {
     "data": "2025-11-20",
-    "materia": "Educazione storico-sociale",
+    "materia": "Gestione e manutenzione del luogo di lavoro",
     "docente": "Patrizia Casella",
     "orario": "08:30 – 13:30",
     "sede": "Sede principale"
@@ -36,21 +29,28 @@
   },
   {
     "data": "2025-11-25",
-    "materia": "Materia da definire",
-    "docente": "Docente da definire",
+    "materia": "Gestione e manutenzione del luogo di lavoro",
+    "docente": "Patrizia Casella",
     "orario": "13:30 – 16:30",
     "sede": "Sede principale"
   },
   {
     "data": "2025-11-26",
-    "materia": "Materia da definire",
-    "docente": "Docente da definire",
-    "orario": "13:30 – 16:30",
+    "materia": "Tecniche e procedure di cybersecurity",
+    "docente": "Francesco Lanzillo",
+    "orario": "14:00 – 16:00",
+    "sede": "Sede principale"
+  },
+  {
+    "data": "2025-11-26",
+    "materia": "Tecniche di configurazione e installazione hardware (Laboratorio)",
+    "docente": "Francesco Lanzillo",
+    "orario": "16:00 – 17:00",
     "sede": "Sede principale"
   },
   {
     "data": "2025-11-27",
-    "materia": "Educazione storico-sociale",
+    "materia": "Gestione e manutenzione del luogo di lavoro",
     "docente": "Patrizia Casella",
     "orario": "08:30 – 13:30",
     "sede": "Sede principale"
@@ -59,7 +59,7 @@
     "data": "2025-11-28",
     "materia": "Educazione motoria",
     "docente": "Massimo Brinati",
-    "orario": "11:00 – 13:00",
+    "orario": "09:00 – 11:00",
     "sede": "Piscina di Mezzana"
   },
   {
