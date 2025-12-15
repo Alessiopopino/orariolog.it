@@ -1,103 +1,5 @@
 [
   {
-    "data": "2025-12-01",
-    "materia": "Lingua Italiana",
-    "docente": "Stefano Farinelli",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-02",
-    "materia": "Gestione e manutenzione del luogo di lavoro (Laboratorio)",
-    "docente": "Patrizia Casella",
-    "orario": "13:30 – 16:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-02",
-    "materia": "Tecniche di configurazione e installazione hardware (Laboratorio)",
-    "docente": "Francesco Lanzillo",
-    "orario": "13:30 – 16:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-03",
-    "materia": "Sicurezza nei luoghi di lavoro e salvaguardia ambientale",
-    "docente": "Serena Carnemolla",
-    "orario": "08:00 – 13:00",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-04",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "11:00 – 13:00",
-    "sede": "Piscina di Mezzana"
-  },
-  {
-    "data": "2025-12-04",
-    "materia": "Pianificazione e time management",
-    "docente": "Francesca Bernabei",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-05",
-    "materia": "Pianificazione e time management",
-    "docente": "Francesca Bernabei",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-05",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "12:00 – 13:00",
-    "sede": "Piscina di Mezzana"
-  },
-  {
-    "data": "2025-12-09",
-    "materia": "Sicurezza nei luoghi di lavoro e salvaguardia ambientale",
-    "docente": "Serena Carnemolla",
-    "orario": "09:00 – 13:00",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-09",
-    "materia": "Sicurezza nei luoghi di lavoro e salvaguardia ambientale",
-    "docente": "Serena Carnemolla",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-10",
-    "materia": "Educazione storico-sociale",
-    "docente": "Patrizia Casella",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-11",
-    "materia": "Pianificazione e time management",
-    "docente": "Francesca Bernabei",
-    "orario": "13:30 – 17:30",
-    "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-11",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "11:00 – 13:00",
-    "sede": "Piscina di Mezzana"
-  },
-  {
-    "data": "2025-12-12",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "09:00 – 11:00",
-    "sede": "Piscina di Mezzana"
-  },
-  {
     "data": "2025-12-15",
     "materia": "Lingua Italiana",
     "docente": "Stefano Farinelli",
@@ -112,31 +14,31 @@
     "sede": "Sede principale"
   },
   {
-    "data": "2025-12-16",
+    "data": "2025-12-17", 
     "materia": "Sicurezza nei luoghi di lavoro e salvaguardia ambientale",
     "docente": "Serena Carnemolla",
     "orario": "13:30 – 17:30",
     "sede": "Sede principale"
   },
   {
-    "data": "2025-12-17",
+    "data": "2025-12-18", 
     "materia": "Sicurezza nei luoghi di lavoro e salvaguardia ambientale",
-    "docente": "Serena Carnemolla",
-    "orario": "13:30 – 17:30",
+    "docente": "Massimo Brinati", 
+    "orario": "11:00 – 13:00", 
     "sede": "Sede principale"
-  },
-  {
-    "data": "2025-12-18",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "11:00 – 13:00",
-    "sede": "Piscina di Mezzana"
   },
   {
     "data": "2025-12-18",
     "materia": "Pianificazione e time management",
     "docente": "Francesca Bernabei",
-    "orario": "13:30 – 17:30",
+    "orario": "13:30 – 17:30", 
+    "sede": "Sede principale"
+  },
+  {
+    "data": "2025-12-19", 
+    "materia": " Educazione motoria", 
+    "docente": "Massimo Brinati", 
+    "orario": "9:00 – 11:00", 
     "sede": "Sede principale"
   },
   {
