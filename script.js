@@ -3,12 +3,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const calendarContainer = document.getElementById("calendar");
   const searchInput = document.getElementById("search-input");
   const daySelect = document.getElementById("day-select");
-
-  /* Tema salvato */
   const themeToggle = document.getElementById("theme-toggle");
-  const currentTheme = localStorage.getItem("theme");
 
-  if (currentTheme === "dark") document.body.classList.add("dark-mode");
+  /* ===== TEMA ===== */
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") document.body.classList.add("dark-mode");
   themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
 
   themeToggle.addEventListener("click", () => {
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("theme", theme);
   });
 
-  /* Crea card */
+  /* ===== CREA CARD ===== */
   function createCard(item, index) {
     const card = document.createElement("div");
     card.classList.add("card");
@@ -27,7 +26,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const dayName = date.toLocaleDateString("it-IT", { weekday: "long" });
 
     const formattedDate = `${dayName} ${date.toLocaleDateString("it-IT", {
-      day: "2-digit", month: "2-digit", year: "numeric"
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
     })}`;
 
     card.innerHTML = `
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <strong>${item.materia}</strong><br>
         ${item.docente}<br>
         ${item.orario}<br>
-        ${item.sede}
+        <a href="${item.maps}" target="_blank">📍 Apri su Maps</a>
       </div>
     `;
 
@@ -48,43 +49,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, index * 60);
   }
 
-  /* Carica orario */
+  /* ===== CARICA DATI ===== */
   async function loadOrario() {
-    let data = null;
-
-    const cached = localStorage.getItem("orarioCache");
-    if (cached) {
-      try { data = JSON.parse(cached); } catch {}
-    }
-
     try {
       const response = await fetch("orario.json", { cache: "no-store" });
-      const freshData = await response.json();
-
-      if (JSON.stringify(freshData) !== JSON.stringify(data)) {
-        localStorage.setItem("orarioCache", JSON.stringify(freshData));
-      }
-
-      data = freshData;
+      return await response.json();
     } catch {
-      console.warn("⚠ Offline → uso cache locale");
+      calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
+      return [];
     }
-
-    return data;
   }
 
-  /* Render */
-  try {
-    const data = await loadOrario();
+  /* ===== RENDER ===== */
+  const data = await loadOrario();
 
-    data.sort((a, b) => new Date(a.data) - new Date(b.data));
-    data.forEach((item, index) => createCard(item, index));
+  data
+    .sort((a, b) => new Date(a.data) - new Date(b.data))
+    .forEach((item, index) => createCard(item, index));
 
-  } catch {
-    calendarContainer.innerHTML = "<p>Errore nel caricamento dell'orario.</p>";
-  }
-
-  /* Filtri */
+  /* ===== FILTRI ===== */
   function applyFilters() {
     const text = searchInput.value.toLowerCase();
     const day = daySelect.value;
@@ -98,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const matchText = content.includes(text);
       const matchDay = (day === "all") || dateText.includes(day);
 
-      card.style.display = matchText && matchDay ? "" : "none";
+      card.style.display = (matchText && matchDay) ? "" : "none";
     });
   }
 
