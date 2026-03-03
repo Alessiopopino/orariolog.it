@@ -27,11 +27,5 @@
     "orario": "14:00 – 17:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
   },
-  {
-    "data": "2026-03-06",
-    "materia": "Educazione motoria",
-    "docente": "Massimo Brinati",
-    "orario": "09:00 – 13:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Sant'Andrea+a+Tontoli+20+Prato"
   }
 ]
