@@ -1,1 +1,79 @@
-
+[
+  {
+    "data": "2026-03-09",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-10",
+    "materia": "Educazione scientifico-ambientale",
+    "docente": "Giorgio Santi",
+    "orario": "08:30 – 11:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-11",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-12",
+    "materia": "Tecniche di manutenzione di network informatici",
+    "docente": "Francesco Lanzillo",
+    "orario": "14:00 – 17:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-13",
+    "materia": "Educazione scientifico-ambientale",
+    "docente": "Giorgio Santi",
+    "orario": "14:00 – 17:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-16",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-18",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-19",
+    "materia": "Tecniche di manutenzione di network informatici",
+    "docente": "Francesco Lanzillo",
+    "orario": "14:00 – 17:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-23",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-25",
+    "materia": "Tecniche di configurazione e installazione di componenti hardware",
+    "docente": "Orazio Tiziano Ponti",
+    "orario": "13:30 – 17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  },
+  {
+    "data": "2026-03-26",
+    "materia": "Tecniche di manutenzione di network informatici",
+    "docente": "Francesco Lanzillo",
+    "orario": "14:00 – 17:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Via+Adriano+Zarini+252+Prato"
+  }
+]
