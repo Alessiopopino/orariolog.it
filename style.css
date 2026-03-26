@@ -115,6 +115,26 @@ h1:hover {
   border: 1px solid #ccc;
 }
 
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0;                /* invisibile all'inizio */
+  transition: opacity 0.6s ease;
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+footer.visible {
+  opacity: 0.7;             /* diventa visibile con fade */
+}
+
+footer p {
+  margin: 0;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   .card {
