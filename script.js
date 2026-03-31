@@ -19,9 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const searchBar = document.getElementById("search-bar");
   const dayFilter = document.getElementById("day-filter");
+  const searchWrapper = document.getElementById("search-wrapper");
 
   // ===== MODALITÀ MANUTENZIONE =====
-  const MAINTENANCE_MODE = true; // Cambia in true per attivare la manutenzione
+  const MAINTENANCE_MODE = false; // Cambia in true per attivare la manutenzione
 
   // ===== FUNZIONE ESCAPE XSS =====
   function escapeHtml(str) {
@@ -149,6 +150,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  // ===== GESTIONE SCROLL E INTERAZIONE =====
+  function handleScroll() {
+    if (!searchWrapper) return;
+    // Se lo scroll è in cima (o quasi) e la barra è trasparente, la rendo opaca
+    if (window.scrollY === 0) {
+      searchWrapper.classList.remove("fade-scroll");
+    } else {
+      // Altrimenti aggiungo la classe trasparente
+      searchWrapper.classList.add("fade-scroll");
+    }
+  }
+
+  function resetOpacityOnInteraction() {
+    if (!searchWrapper) return;
+    searchWrapper.classList.remove("fade-scroll");
+  }
+
   // ===== AVVIO =====
   if (MAINTENANCE_MODE) {
     searchBar.style.display = "none";
@@ -170,6 +188,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchInput.addEventListener("input", applyFilters);
     daySelect.addEventListener("change", applyFilters);
   }
+
+  // ===== APPLICA EVENTI SCROLL E INTERAZIONE =====
+  window.addEventListener("scroll", handleScroll);
+  // Interazioni che ripristinano l'opacità
+  searchWrapper.addEventListener("mouseenter", resetOpacityOnInteraction);
+  searchInput.addEventListener("focus", resetOpacityOnInteraction);
+  daySelect.addEventListener("focus", resetOpacityOnInteraction);
+  searchWrapper.addEventListener("click", resetOpacityOnInteraction);
 
   // ===== TITOLO CLICCABILE PER RIAVVIARE =====
   const title = document.querySelector("header h1");
@@ -196,7 +222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <li><strong>Deterrente ispezione</strong> – blocco tasto destro e combinazioni (F12, Ctrl+Shift+I, Ctrl+U)</li>
           <li><strong>Link mappe</strong> – aggiunto attributo <code>rel="noopener noreferrer"</code></li>
           <li><strong>Filtri migliorati</strong> – messaggio "Nessun risultato" quando non ci sono corrispondenze</li>
-          <li><strong>Ricerca sticky</strong> – barra di ricerca e filtro rimangono fissi durante lo scroll (sfondo opaco)</li>
+          <li><strong>Ricerca sticky con fade intelligente</strong> – la barra diventa trasparente durante lo scroll e torna visibile solo tornando in cima o interagendo</li>
         </ul>
         <p class="changelog-date">Ultimo aggiornamento: 31 marzo 2026</p>
       </div>
