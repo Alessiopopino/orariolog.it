@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <li><strong>Filtri migliorati</strong> – messaggio "Nessun risultato" quando non ci sono corrispondenze</li>
           <li><strong>Ricerca sticky con fade intelligente</strong> – la barra diventa trasparente durante lo scroll e torna visibile solo tornando in cima o interagendo</li>
         </ul>
-        <p class="changelog-date">Ultimo aggiornamento: 31 marzo 2026</p>
+        <p class="changelog-date">Ultimo aggiornamento: 2 Aprile 2026</p>
       </div>
     `;
 
