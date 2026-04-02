@@ -53,24 +53,12 @@ h1:hover {
   color: var(--text-color);
 }
 
-/* WRAPPER STICKY - con transizione per opacità */
+/* Wrapper ricerca: normale, senza sticky */
 #search-wrapper {
-  position: sticky;
-  top: 70px;
-  background: transparent;
-  z-index: 9;
   padding: 0.8rem 0 1rem 0;
   margin: 0;
-  transition: opacity 0.3s ease;
-  opacity: 1; /* normale */
 }
 
-/* Classe per semi-trasparente durante lo scroll */
-#search-wrapper.fade-scroll {
-  opacity: 0.4;
-}
-
-/* SEARCH BAR */
 #search-bar {
   display: flex;
   justify-content: center;
@@ -96,7 +84,6 @@ h1:hover {
   box-shadow: 0 0 0 2px rgba(0,120,255,0.2);
 }
 
-/* FILTRO GIORNO */
 #day-filter {
   display: flex;
   justify-content: center;
@@ -119,7 +106,6 @@ h1:hover {
   border-color: var(--accent-color);
 }
 
-/* CALENDARIO */
 #calendar-container {
   padding: 2rem 2rem 1rem 2rem;
   display: flex;
@@ -231,31 +217,74 @@ footer p {
   opacity: 0.7;
 }
 
+/* BOTTONE TORNA SU - stabile, senza effetti di colore */
+#scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  z-index: 100;
+  user-select: none;
+  outline: none;
+}
+
+#scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#scroll-to-top:hover {
+  transform: scale(1.05);
+}
+
+#scroll-to-top:active {
+  transform: scale(0.95);
+}
+
+#scroll-to-top:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
 @media (max-width: 768px) {
   .card {
     width: 85%;
     max-width: 85%;
     margin-bottom: 1.5rem;
   }
-
   #calendar-container {
     padding: 1rem 1rem 0.5rem 1rem;
     gap: 1.2rem;
   }
-
   #search-input {
     width: 80%;
     max-width: 220px;
     font-size: 0.9rem;
   }
-
   h1 {
     font-size: 1.2rem;
   }
-
-  #search-wrapper {
-    top: 60px;
-    padding: 0.5rem 0 0.8rem 0;
+  #scroll-to-top {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    bottom: 15px;
+    right: 15px;
   }
 }
 
