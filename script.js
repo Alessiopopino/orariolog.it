@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <li><strong>Freccia "torna su"</strong> – pulsante fisso in basso a destra, colore neutro che segue il tema, animazione al click</li>
           <li><strong>Ricerca normale</strong> – la barra di ricerca scorre con la pagina (non più sticky)</li>
         </ul>
-        <p class="changelog-date">Ultimo aggiornamento: 2 aprile 2026</p>
+        <p class="changelog-date">Ultimo aggiornamento: 20 aprile 2026</p>
       </div>
     `;
 
