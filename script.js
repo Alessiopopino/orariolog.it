@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const scrollToTopBtn = document.getElementById("scroll-to-top");
 
   // ===== MODALITÀ MANUTENZIONE =====
-  const MAINTENANCE_MODE = true ; // Cambia in true per attivare la manutenzione
+  const MAINTENANCE_MODE = false ; // Cambia in true per attivare la manutenzione
 
   // ===== FUNZIONE ESCAPE XSS =====
   function escapeHtml(str) {
